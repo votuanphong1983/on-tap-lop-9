@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sát Thủ Hình Học 9 🎯</title>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #00cec9;
+            --warning: #fab1a0;
+            --success: #55efc4;
+            --dark: #2d3436;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #dfe6e9; color: var(--dark); margin: 0; }
+        .header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; text-align: center; padding: 3rem 1rem; clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); }
+        .container { max-width: 1000px; margin: -50px auto 50px; padding: 0 15px; }
+        .card { background: white; border-radius: 20px; padding: 25px; margin-bottom: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-top: 8px solid var(--primary); }
+        h2 { color: var(--primary); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .formula-box { background: #f9f9f9; border: 2px dashed var(--primary); padding: 15px; border-radius: 10px; margin: 10px 0; position: relative; }
+        .badge { position: absolute; top: -10px; right: 10px; background: var(--warning); padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
+        
+        /* Quiz */
+        .quiz-box { background: var(--dark); color: white; padding: 30px; border-radius: 20px; margin-top: 40px; }
+        .btn-option { display: block; width: 100%; padding: 12px; margin: 10px 0; border: none; border-radius: 10px; cursor: pointer; background: #4b4b4b; color: white; text-align: left; font-size: 1rem; transition: 0.3s; }
+        .btn-option:hover { background: #636e72; transform: translateX(10px); }
+        .correct { background: var(--success) !important; color: var(--dark) !important; font-weight: bold; }
+        .wrong { background: #ff7675 !important; }
+        #score-board { text-align: center; font-size: 1.5rem; color: var(--secondary); margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🔥 PHÁ ĐẢO HÌNH HỌC LỚP 9 🔥</h1>
+    <p>Hệ thống kiến thức trọng tâm ôn thi vào 10</p>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h2>📐 I. Tam Giác Vuông (Nền Tảng)</h2>
+        <div class="grid">
+            <div class="formula-box">
+                <span class="badge">Siêu quan trọng!</span>
+                <h3>Hệ thức lượng</h3>
+                <ul>
+                    <li>$a^2 = b^2 + c^2$ (Pythagore)</li>
+                    <li>$h^2 = b' \cdot c'$</li>
+                    <li>$b^2 = a \cdot b'$ và $c^2 = a \cdot c'$</li>
+                    <li>$h \cdot a = b \cdot c$</li>
+                </ul>
+            </div>
+            <div class="formula-box">
+                <h3>Tỉ số lượng giác</h3>
+                <p>💡 Mẹo: <i>"Sin đi học, Cos không hư, Tan đoàn kết, Cot kết đoàn"</i></p>
+                <ul>
+                    <li>$\sin \alpha = \frac{\text{Đối}}{\text{Huyền}}$</li>
+                    <li>$\cos \alpha = \frac{\text{Kề}}{\text{Huyền}}$</li>
+                    <li>$\tan \alpha = \frac{\text{Đối}}{\text{Kề}}$</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="border-top-color: var(--secondary);">
+        <h2>🔵 II. Đường Tròn (Cốt Lõi)</h2>
+        <div class="grid">
+            <div class="formula-box">
+                <h3>Góc với đường tròn</h3>
+                <ul>
+                    <li><b>Góc nội tiếp:</b> $\alpha = \frac{1}{2} \text{sđ cung bị chắn}$</li>
+                    <li><b>Góc ở tâm:</b> $\beta = \text{sđ cung bị chắn}$</li>
+                    <li><b>Góc tạo bởi tiếp tuyến:</b> $\gamma = \frac{1}{2} \text{sđ cung bị chắn}$</li>
+                </ul>
+            </div>
+            <div class="formula-box" style="background: #e1f5fe;">
+                <h3>Tứ giác nội tiếp 🎡</h3>
+                <p><b>Dấu hiệu nhận biết:</b></p>
+                <ul>
+                    <li>Tổng hai góc đối diện bằng $180^\circ$.</li>
+                    <li>Hai đỉnh kề nhìn một cạnh dưới các góc bằng nhau.</li>
+                    <li>Góc ngoài tại một đỉnh bằng góc trong của đỉnh đối diện.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-box">
+        <h2 style="color: var(--secondary); text-align: center;">🎮 THỬ THÁCH NHANH</h2>
+        <div id="quiz-area">
+            <p id="question" style="font-size: 1.2rem; min-height: 50px;"></p>
+            <div id="options"></div>
+        </div>
+        <div id="score-board"></div>
+        <button id="restart-btn" style="display:none; margin: 20px auto; padding: 10px 20px; cursor:pointer; border-radius: 10px; border:none; background: var(--secondary);">Làm lại từ đầu 🔄</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            q: "Trong tam giác vuông, bình phương đường cao ứng với cạnh huyền bằng?",
+            o: ["Tích hai cạnh góc vuông", "Tích hai hình chiếu của hai cạnh góc vuông trên cạnh huyền", "Tích cạnh huyền và đường cao"],
+            a: 1
+        },
+        {
+            q: "Một tứ giác nội tiếp đường tròn luôn có tổng hai góc đối bằng bao nhiêu?",
+            o: ["90 độ", "180 độ", "360 độ"],
+            a: 1
+        },
+        {
+            q: "Góc nội tiếp chắn nửa đường tròn là góc gì?",
+            o: ["Góc nhọn", "Góc vuông", "Góc tù"],
+            a: 1
+        }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+
+    function showQuestion() {
+        const q = questions[currentQ];
+        document.getElementById('question').innerText = `Câu ${currentQ + 1}: ${q.q}`;
+        const optDiv = document.getElementById('options');
+        optDiv.innerHTML = '';
+        
+        q.o.forEach((opt, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'btn-option';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(i);
+            optDiv.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(idx) {
+        const btns = document.querySelectorAll('.btn-option');
+        if(idx === questions[currentQ].a) {
+            btns[idx].classList.add('correct');
+            score++;
+        } else {
+            btns[idx].classList.add('wrong');
+            btns[questions[currentQ].a].classList.add('correct');
+        }
+
+        setTimeout(() => {
+            currentQ++;
+            if(currentQ < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }, 1500);
+    }
+
+    function showResult() {
+        document.getElementById('quiz-area').style.display = 'none';
+        const board = document.getElementById('score-board');
+        board.style.display = 'block';
+        board.innerHTML = `Chúc mừng con! 🎉 <br> Kết quả: ${score}/${questions.length} câu đúng.`;
+        document.getElementById('restart-btn').style.display = 'block';
+    }
+
+    document.getElementById('restart-btn').onclick = () => {
+        currentQ = 0; score = 0;
+        document.getElementById('quiz-area').style.display = 'block';
+        document.getElementById('score-board').style.display = 'none';
+        document.getElementById('restart-btn').style.display = 'none';
+        showQuestion();
+    };
+
+    showQuestion();
+</script>
+
+</body>
+</html>
