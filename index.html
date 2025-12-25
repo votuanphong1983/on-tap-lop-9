@@ -2,280 +2,218 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ôn Thi Toán 9 Vào 10 - Kiến Thức & Trắc Nghiệm</title>
+    <title>Ôn Thi Toán 9 Vào 10 - Thầy Tuyến LT7 Style</title>
     
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-            svg: { fontCache: 'global' }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] }
         };
     </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        :root { --primary: #2c3e50; --algebra: #2980b9; --geo: #c0392b; --light: #f8f9fa; --success: #27ae60; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; color: #333; line-height: 1.6; }
+        :root { --main: #1a5f7a; --sub: #159895; --accent: #ffb84c; --bg: #f5f9f9; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; color: #333; line-height: 1.6; }
         
-        header { background: linear-gradient(135deg, #2c3e50, #34495e); color: white; padding: 2rem 1rem; text-align: center; }
-        h1 { margin: 0; font-size: 2rem; text-transform: uppercase; }
-        
-        .nav-tabs { display: flex; justify-content: center; background: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .tab-btn { padding: 18px 30px; border: none; background: none; font-size: 1.1rem; cursor: pointer; font-weight: bold; color: #7f8c8d; border-bottom: 4px solid transparent; transition: 0.3s; }
-        .tab-btn.active-alg { color: var(--algebra); border-bottom-color: var(--algebra); }
-        .tab-btn.active-geo { color: var(--geo); border-bottom-color: var(--geo); }
+        /* Header & Nav */
+        header { background: var(--main); color: white; padding: 25px; text-align: center; border-bottom: 5px solid var(--accent); }
+        nav { display: flex; justify-content: center; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .tab-btn { padding: 15px 25px; border: none; background: none; font-weight: bold; cursor: pointer; color: #666; border-bottom: 3px solid transparent; transition: 0.3s; }
+        .tab-btn.active { color: var(--main); border-bottom-color: var(--main); background: #f0f7f9; }
 
         .container { max-width: 900px; margin: 30px auto; padding: 0 20px; display: none; }
-        .container.active { display: block; animation: fadeIn 0.4s ease-out; }
-        
-        .info-card { background: white; border-radius: 12px; padding: 25px; margin-bottom: 30px; border-left: 8px solid #ccc; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .alg-border { border-left-color: var(--algebra); }
-        .geo-border { border-left-color: var(--geo); }
+        .container.active { display: block; animation: fadeIn 0.5s; }
 
-        .quiz-wrapper { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-height: 200px; }
-        .q-text { font-size: 1.2rem; font-weight: 600; margin-bottom: 20px; display: block; }
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .opt-btn { padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; background: white; cursor: pointer; text-align: left; font-size: 1rem; transition: 0.2s; }
-        .opt-btn:hover:not(:disabled) { border-color: var(--primary); background: #fdfdfd; }
-        
-        .correct { border-color: var(--success) !important; background: #eafaf1 !important; color: var(--success); font-weight: bold; }
+        /* Kiến thức tổng hợp */
+        .knowledge-hub { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--sub); }
+        .card h3 { color: var(--main); margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .math-box { background: #f8f8f8; padding: 10px; border-radius: 5px; margin: 10px 0; font-family: 'Times New Roman', serif; }
+
+        /* Quiz UI */
+        .quiz-box { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .q-text { font-size: 1.2rem; font-weight: bold; margin-bottom: 25px; color: #2c3e50; }
+        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .opt-btn { padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; background: white; cursor: pointer; text-align: left; transition: 0.2s; font-size: 1rem; }
+        .opt-btn:hover:not(:disabled) { border-color: var(--sub); background: #f0fdfa; }
+        .correct { border-color: #27ae60 !important; background: #eafaf1 !important; color: #27ae60; font-weight: bold; }
         .wrong { border-color: #e74c3c !important; background: #fadbd8 !important; color: #c0392b; }
         
-        .feedback-msg { margin-top: 15px; padding: 12px; border-radius: 8px; text-align: center; font-weight: 500; display: none; }
-        .next-btn { background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; float: right; display: none; margin-top: 15px; font-weight: bold; }
+        .explanation { margin-top: 20px; padding: 15px; border-radius: 8px; display: none; border: 1px dashed #ccc; }
+        .next-btn { background: var(--main); color: white; border: none; padding: 12px 30px; border-radius: 30px; cursor: pointer; float: right; display: none; margin-top: 20px; font-weight: bold; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @media (max-width: 600px) { .options-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) { .knowledge-hub, .options { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>🎓 ÔN THI TOÁN 9 VÀO 10</h1>
+    <h1>CHINH PHỤC TOÁN 9 VÀO 10</h1>
+    <p>Tổng hợp kiến thức trọng tâm & Bài tập rèn luyện</p>
 </header>
 
-<nav class="nav-tabs">
-    <button id="btn-algebra" class="tab-btn active-alg" onclick="switchTab('algebra', event)">🔢 ĐẠI SỐ</button>
-    <button id="btn-geometry" class="tab-btn" onclick="switchTab('geometry', event)">📐 HÌNH HỌC</button>
+<nav>
+    <button class="tab-btn active" onclick="showTab('theory')">📚 KIẾN THỨC TỔNG HỢP</button>
+    <button class="tab-btn" onclick="showTab('quiz-alg')">🔢 ĐẠI SỐ</button>
+    <button class="tab-btn" onclick="showTab('quiz-geo')">📐 HÌNH HỌC</button>
 </nav>
 
-<div id="algebra" class="container active">
-    <div class="info-card alg-border">
-        <h3>📚 Kiến Thức Trọng Tâm Đại Số</h3>
-        <ul>
-            <li><b>Căn thức:</b> $\sqrt{A^2} = |A|$. Điều kiện $\sqrt{A}$ có nghĩa khi $A \ge 0$.</li>
-            <li><b>Vi-ét:</b> $x_1 + x_2 = -b/a$; $x_1x_2 = c/a$.</li>
-        </ul>
-    </div>
-    <div class="quiz-wrapper">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h3 style="color:var(--algebra)">📝 Quiz Đại Số</h3>
-            <span id="score-alg" style="font-weight:bold; color:var(--algebra)">Điểm: 0</span>
+<div id="theory" class="container active">
+    <div class="knowledge-hub">
+        <div class="card">
+            <h3>1. Căn bậc hai & Rút gọn</h3>
+            <ul>
+                <li>$\sqrt{A^2} = |A|$</li>
+                <li>ĐKXĐ: $\sqrt{A}$ có nghĩa khi $A \ge 0$</li>
+                <li>Trục căn thức: $\frac{1}{\sqrt{a}-\sqrt{b}} = \frac{\sqrt{a}+\sqrt{b}}{a-b}$</li>
+            </ul>
         </div>
-        <hr style="opacity:0.1; margin: 15px 0;">
-        <div id="alg-quiz-area"></div>
-        <button id="next-algebra" class="next-btn" onclick="nextQuestion('algebra')">Tiếp theo ➡️</button>
+        <div class="card">
+            <h3>2. Hàm số bậc nhất</h3>
+            <ul>
+                <li>$y = ax + b$ ($a \neq 0$)</li>
+                <li>Song song: $a=a'; b \neq b'$</li>
+                <li>Vuông góc: $a \cdot a' = -1$</li>
+                <li>$a>0$: Đồng biến; $a<0$: Nghịch biến</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>3. Hệ thức lượng vuông</h3>
+                        <ul>
+                <li>$h^2 = b' \cdot c'$</li>
+                <li>$a \cdot h = b \cdot c$</li>
+                <li>$b^2 = a \cdot b'; c^2 = a \cdot c'$</li>
+                <li>$\frac{1}{h^2} = \frac{1}{b^2} + \frac{1}{c^2}$</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>4. Góc & Đường tròn</h3>
+                        <ul>
+                <li>Góc nội tiếp chắn nửa đường tròn $= 90^\circ$</li>
+                <li>Tổng 2 góc đối tứ giác nội tiếp $= 180^\circ$</li>
+                <li>Góc nội tiếp $= \frac{1}{2}$ Góc ở tâm (cùng chắn 1 cung)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="quiz-alg" class="container">
+    <div class="quiz-box">
+        <div id="alg-content"></div>
+        <button id="alg-next" class="next-btn" onclick="nextQuestion('alg')">Câu tiếp theo ➡️</button>
         <div style="clear:both"></div>
     </div>
 </div>
 
-<div id="geometry" class="container">
-    <div class="info-card geo-border">
-        <h3>📚 Kiến Thức Trọng Tâm Hình Học</h3>
-        <ul>
-            <li><b>Hệ thức lượng:</b> $h^2 = b' \cdot c'$; $a \cdot h = b \cdot c$.</li>
-            <li><b>Góc nội tiếp:</b> Bằng nửa số đo cung bị chắn.</li>
-            <li><b>Tứ giác nội tiếp:</b> Tổng hai góc đối bằng $180^\circ$.</li>
-        </ul>
-            </div>
-    <div class="quiz-wrapper">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h3 style="color:var(--geo)">📝 Quiz Hình Học</h3>
-            <span id="score-geo" style="font-weight:bold; color:var(--geo)">Điểm: 0</span>
-        </div>
-        <hr style="opacity:0.1; margin: 15px 0;">
-        <div id="geo-quiz-area"></div>
-        <button id="next-geometry" class="next-btn" onclick="nextQuestion('geometry')">Tiếp theo ➡️</button>
+<div id="quiz-geo" class="container">
+    <div class="quiz-box">
+        <div id="geo-content"></div>
+        <button id="geo-next" class="next-btn" onclick="nextQuestion('geo')">Câu tiếp theo ➡️</button>
         <div style="clear:both"></div>
     </div>
 </div>
 
 <script>
-    // 1. Dữ liệu câu hỏi (Bạn có thể thêm bớt ở đây rất dễ dàng)
-const questionBank = {
-    algebra: [
-        // ====== ĐẠI SỐ – PHƯƠNG TRÌNH, BPT ======
-        {
-            q: "Điều kiện xác định của $\\sqrt{2x-1}$ là:",
-            options: ["$x \\ge \\tfrac{1}{2}$", "$x > \\tfrac{1}{2}$", "$x \\le \\tfrac{1}{2}$", "$x < \\tfrac{1}{2}$"],
-            ans: 0
-        },
-        {
-            q: "Nghiệm của phương trình $(x+3)(2x-7)=0$ là:",
-            options: ["$x=-3$ hoặc $x=\\tfrac{7}{2}$", "$x=3$ hoặc $x=\\tfrac{7}{2}$", "$x=-3$ hoặc $x=\\tfrac{-7}{2}$", "$x=3$ hoặc $x=-\\tfrac{7}{2}$"],
-            ans: 0
-        },
-        {
-            q: "Hệ phương trình $\\begin{cases} x+y=6 \\\\ x-y=2 \\end{cases}$ có nghiệm là:",
-            options: ["$(4;2)$", "$(2;4)$", "$(3;3)$", "$(1;5)$"],
-            ans: 0
-        },
-        {
-            q: "Giải bất phương trình $3x+2 \\ge 11$ ta được:",
-            options: ["$x \\ge 3$", "$x > 3$", "$x \\le 3$", "$x < 3$"],
-            ans: 0
-        },
-        {
-            q: "Giá trị của biểu thức $\\sqrt{4x-7}$ xác định khi:",
-            options: ["$x \\ge \\tfrac{7}{4}$", "$x > \\tfrac{7}{4}$", "$x \\le \\tfrac{7}{4}$", "$x < \\tfrac{7}{4}$"],
-            ans: 0
-        },
-        {
-            q: "Số nào sau đây **không** là căn bậc hai của 16?",
-            options: ["$4$", "$-4$", "$\\sqrt{16}$", "$8$"],
-            ans: 3
-        },
-        {
-            q: "Giải phương trình $2x(x+6)+5(x+6)=0$ ta được:",
-            options: ["$x=-6$ hoặc $x=-\\tfrac{5}{2}$", "$x=6$ hoặc $x=\\tfrac{5}{2}$", "$x=-6$", "$x=-\\tfrac{5}{2}$"],
-            ans: 0
-        }
-    ],
-
-    geometry: [
-        // ====== HÌNH HỌC – TAM GIÁC, ĐƯỜNG TRÒN ======
-        {
-            q: "Góc nội tiếp chắn nửa đường tròn có số đo bằng:",
-            options: ["$45^\\circ$", "$60^\\circ$", "$90^\\circ$", "$120^\\circ$"],
-            ans: 2
-        },
-        {
-            q: "Trong đường tròn, hai tiếp tuyến kẻ từ một điểm ngoài có độ dài:",
-            options: ["Không bằng nhau", "Bằng nhau", "Tỷ lệ với bán kính", "Luôn vuông góc"],
-            ans: 1
-        },
-        {
-            q: "Nếu tam giác nội tiếp đường tròn có một cạnh là đường kính thì tam giác đó:",
-            options: ["Cân", "Đều", "Vuông", "Tù"],
-            ans: 2
-        },
-        {
-            q: "Tứ giác nội tiếp đường tròn có tổng hai góc đối bằng:",
-            options: ["$90^\\circ$", "$120^\\circ$", "$180^\\circ$", "$360^\\circ$"],
-            ans: 2
-        },
-        {
-            q: "Trong tam giác vuông, hệ thức $\\sin A$ được xác định bằng:",
-            options: [
-                "Cạnh đối / cạnh huyền",
-                "Cạnh kề / cạnh huyền",
-                "Cạnh đối / cạnh kề",
-                "Cạnh huyền / cạnh đối"
-            ],
-            ans: 0
-        },
-        {
-            q: "Nếu từ một điểm M ngoài đường tròn vẽ hai tiếp tuyến MA, MB thì:",
-            options: [
-                "$MA < MB$",
-                "$MA > MB$",
-                "$MA = MB$",
-                "$MA + MB = R$"
-            ],
-            ans: 2
-        },
-        {
-            q: "Đường thẳng vuông góc với bán kính tại tiếp điểm là:",
-            options: ["Dây cung", "Tiếp tuyến", "Cát tuyến", "Đường kính"],
-            ans: 1
-        }
-    ]
-};
-
-
-    let state = {
-        algebra: { currentIdx: 0, score: 0 },
-        geometry: { currentIdx: 0, score: 0 }
+    // DỮ LIỆU CÂU HỎI (Sử dụng chuỗi raw String.raw để tránh lỗi \ )
+    const questions = {
+        alg: [
+            {
+                q: String.raw`Điều kiện xác định của biểu thức $\sqrt{3x - 12}$ là:`,
+                options: [String.raw`$x \ge 4$`, String.raw`$x > 4$`, String.raw`$x \le 4$`, String.raw`$x < 4$`],
+                ans: 0,
+                explain: String.raw`Biểu thức trong căn phải không âm: $3x - 12 \ge 0 \Rightarrow 3x \ge 12 \Rightarrow x \ge 4$.`
+            },
+            {
+                q: String.raw`Cho đường thẳng $d: y = (m-1)x + 5$. Tìm $m$ để $d$ song song với $y = 2x - 3$?`,
+                options: ["$m=3$", "$m=2$", "$m=1$", "$m=-1$"],
+                ans: 0,
+                explain: String.raw`Để hai đường thẳng song song thì hệ số góc phải bằng nhau: $m - 1 = 2 \Rightarrow m = 3$.`
+            }
+        ],
+        geo: [
+            {
+                q: String.raw`Cho $\triangle ABC$ nội tiếp đường tròn $(O)$ đường kính $BC$. Số đo góc $\widehat{BAC}$ là:`,
+                options: [String.raw`$90^\circ$`, String.raw`$60^\circ$`, String.raw`$180^\circ$`, String.raw`$45^\circ$`],
+                ans: 0,
+                explain: String.raw`Góc nội tiếp chắn nửa đường tròn luôn là góc vuông ($90^\circ$).`
+            },
+            {
+                q: String.raw`Tứ giác $ABCD$ nội tiếp đường tròn $(O)$ có $\widehat{A} = 75^\circ$. Số đo góc $\widehat{C}$ là:`,
+                options: [String.raw`$105^\circ$`, String.raw`$75^\circ$`, String.raw`$180^\circ$`, String.raw`$25^\circ$`],
+                ans: 0,
+                explain: String.raw`Trong tứ giác nội tiếp, tổng hai góc đối diện bằng $180^\circ$. Vậy $\widehat{C} = 180^\circ - 75^\circ = 105^\circ$.`
+            }
+        ]
     };
 
-    function switchTab(tabName, event) {
+    let state = { alg: 0, geo: 0 };
+
+    function showTab(id) {
         document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-alg', 'active-geo'));
-        
-        document.getElementById(tabName).classList.add('active');
-        event.currentTarget.classList.add(tabName === 'algebra' ? 'active-alg' : 'active-geo');
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        event.currentTarget.classList.add('active');
     }
 
-    function loadQuestion(type) {
-        const data = questionBank[type];
-        const currentIdx = state[type].currentIdx;
-        const areaId = type === 'algebra' ? 'alg-quiz-area' : 'geo-quiz-area';
-        const nextBtnId = type === 'algebra' ? 'next-algebra' : 'next-geometry';
-        
-        const area = document.getElementById(areaId);
-        const nextBtn = document.getElementById(nextBtnId);
+    function renderQuestion(type) {
+        const idx = state[type];
+        const data = questions[type];
+        const container = document.getElementById(type + '-content');
+        const nextBtn = document.getElementById(type + '-next');
 
-        if (!area) return;
-        nextBtn.style.display = 'none';
-
-        if (currentIdx >= data.length) {
-            area.innerHTML = `<div style="text-align:center; padding:20px;">
-                <h3 style="color:var(--success)">🎉 Hoàn thành!</h3>
-                <p>Điểm của bạn: <b>${state[type].score}/${data.length}</b></p>
-                <button onclick="location.reload()" style="padding:10px 20px; cursor:pointer; background:var(--primary); color:white; border:none; border-radius:5px;">Làm lại từ đầu</button>
-            </div>`;
+        if (idx >= data.length) {
+            container.innerHTML = "<h2>🎉 Hoàn thành bài tập!</h2><p>Con đã xem hết các câu hỏi mẫu phần này.</p>";
+            nextBtn.style.display = "none";
             return;
         }
 
-        const item = data[currentIdx];
-        area.innerHTML = `
-            <div class="question-box">
-                <p class="q-text"><b>Câu ${currentIdx + 1}:</b> ${item.q}</p>
-                <div class="options-grid">
-                    ${item.options.map((opt, i) => `
-                        <button class="opt-btn" onclick="checkAnswer('${type}', ${i}, this)">${opt}</button>
-                    `).join('')}
-                </div>
-                <div id="fb-${type}" class="feedback-msg"></div>
+        const item = data[idx];
+        container.innerHTML = `
+            <div class="q-text">Câu ${idx + 1}: ${item.q}</div>
+            <div class="options">
+                ${item.options.map((opt, i) => `<button class="opt-btn" onclick="checkAns('${type}', ${i}, this)">${opt}</button>`).join('')}
             </div>
+            <div id="${type}-ex" class="explanation"></div>
         `;
-        if (window.MathJax) MathJax.typeset();
+        
+        nextBtn.style.display = "none";
+        // Ép MathJax vẽ lại công thức
+        MathJax.typesetPromise();
     }
 
-    function checkAnswer(type, selected, btn) {
-        const item = questionBank[type][state[type].currentIdx];
-        const fb = document.getElementById('fb-' + type);
+    function checkAns(type, selected, btn) {
+        const item = questions[type][state[type]];
+        const exBox = document.getElementById(type + '-ex');
         const btns = btn.parentElement.querySelectorAll('.opt-btn');
-        const scoreSpan = document.getElementById('score-' + (type === 'algebra' ? 'alg' : 'geo'));
-        
-        btns.forEach(b => b.disabled = true);
-        fb.style.display = 'block';
 
+        btns.forEach(b => b.disabled = true);
+        
         if (selected === item.ans) {
             btn.classList.add('correct');
-            fb.innerHTML = "✅ Chính xác!";
-            fb.className = "feedback-msg correct";
-            state[type].score++;
-            scoreSpan.innerText = "Điểm: " + state[type].score;
+            exBox.innerHTML = "✅ <b>Chính xác!</b><br>" + item.explain;
         } else {
             btn.classList.add('wrong');
             btns[item.ans].classList.add('correct');
-            fb.innerHTML = "❌ Sai rồi! Đáp án đúng được tô xanh.";
-            fb.className = "feedback-msg wrong";
+            exBox.innerHTML = "❌ <b>Chưa đúng rồi.</b><br>" + item.explain;
         }
-        document.getElementById('next-' + (type === 'algebra' ? 'algebra' : 'geometry')).style.display = 'block';
+
+        exBox.style.display = "block";
+        document.getElementById(type + '-next').style.display = "block";
+        MathJax.typesetPromise();
     }
 
     function nextQuestion(type) {
-        state[type].currentIdx++;
-        loadQuestion(type);
+        state[type]++;
+        renderQuestion(type);
     }
 
-    // Đảm bảo chạy sau khi trang load xong
-    window.addEventListener('load', () => {
-        loadQuestion('algebra');
-        loadQuestion('geometry');
-    });
+    // Khởi tạo
+    window.onload = () => {
+        renderQuestion('alg');
+        renderQuestion('geo');
+    };
 </script>
 
 </body>
