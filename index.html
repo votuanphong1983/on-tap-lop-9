@@ -13,10 +13,9 @@
     </script>
 
     <style>
-        :root { --main: #1a5f7a; --sub: #159895; --accent: #ffb84c; --bg: #f5f9f9; }
+        :root { --main: #1a5f7a; --sub: #159895; --accent: #ffb84c; --bg: #f5f9f9; --success: #27ae60; --error: #e74c3c; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; color: #333; line-height: 1.6; }
         
-        /* Header & Nav */
         header { background: var(--main); color: white; padding: 25px; text-align: center; border-bottom: 5px solid var(--accent); }
         nav { display: flex; justify-content: center; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .tab-btn { padding: 15px 25px; border: none; background: none; font-weight: bold; cursor: pointer; color: #666; border-bottom: 3px solid transparent; transition: 0.3s; }
@@ -25,23 +24,31 @@
         .container { max-width: 900px; margin: 30px auto; padding: 0 20px; display: none; }
         .container.active { display: block; animation: fadeIn 0.5s; }
 
-        /* Kiến thức tổng hợp */
+        /* Progress Bar Styles */
+        .progress-container { width: 100%; background: #eee; height: 10px; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--sub), var(--accent)); width: 0%; transition: width 0.4s ease; }
+        .stats-text { font-size: 0.9rem; color: #666; margin-bottom: 10px; display: block; }
+
         .knowledge-hub { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--sub); }
         .card h3 { color: var(--main); margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .math-box { background: #f8f8f8; padding: 10px; border-radius: 5px; margin: 10px 0; font-family: 'Times New Roman', serif; }
 
-        /* Quiz UI */
-        .quiz-box { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .q-text { font-size: 1.2rem; font-weight: bold; margin-bottom: 25px; color: #2c3e50; }
+        .quiz-box { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
+        .q-text { font-size: 1.2rem; font-weight: bold; margin-bottom: 25px; color: #2c3e50; min-height: 50px; }
         .options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .opt-btn { padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; background: white; cursor: pointer; text-align: left; transition: 0.2s; font-size: 1rem; }
         .opt-btn:hover:not(:disabled) { border-color: var(--sub); background: #f0fdfa; }
-        .correct { border-color: #27ae60 !important; background: #eafaf1 !important; color: #27ae60; font-weight: bold; }
-        .wrong { border-color: #e74c3c !important; background: #fadbd8 !important; color: #c0392b; }
+        .correct { border-color: var(--success) !important; background: #eafaf1 !important; color: var(--success); font-weight: bold; }
+        .wrong { border-color: var(--error) !important; background: #fadbd8 !important; color: var(--error); }
         
-        .explanation { margin-top: 20px; padding: 15px; border-radius: 8px; display: none; border: 1px dashed #ccc; }
+        .explanation { margin-top: 20px; padding: 15px; border-radius: 8px; display: none; border: 1px dashed #ccc; background: #fafafa; }
         .next-btn { background: var(--main); color: white; border: none; padding: 12px 30px; border-radius: 30px; cursor: pointer; float: right; display: none; margin-top: 20px; font-weight: bold; }
+        .restart-btn { background: var(--sub); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 15px; }
+
+        .result-screen { text-align: center; padding: 40px 20px; }
+        .score-circle { width: 120px; height: 120px; border-radius: 50%; border: 8px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; margin: 0 auto 20px; color: var(--main); }
+
+        .pdf-frame { width: 100%; height: 650px; border: 2px solid #ddd; border-radius: 10px; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @media (max-width: 600px) { .knowledge-hub, .options { grid-template-columns: 1fr; } }
@@ -51,13 +58,14 @@
 
 <header>
     <h1>CHINH PHỤC TOÁN 9 VÀO 10</h1>
-    <p>Tổng hợp kiến thức trọng tâm & Bài tập rèn luyện</p>
+    <p>Hệ thống ôn tập toàn diện & Tài liệu PDF chi tiết</p>
 </header>
 
 <nav>
-    <button class="tab-btn active" onclick="showTab('theory')">📚 KIẾN THỨC TỔNG HỢP</button>
+    <button class="tab-btn active" onclick="showTab('theory')">📚 KIẾN THỨC</button>
     <button class="tab-btn" onclick="showTab('quiz-alg')">🔢 ĐẠI SỐ</button>
     <button class="tab-btn" onclick="showTab('quiz-geo')">📐 HÌNH HỌC</button>
+    <button class="tab-btn" onclick="showTab('pdf-preview')">📄 PDF PREVIEW</button>
 </nav>
 
 <div id="theory" class="container active">
@@ -81,7 +89,7 @@
         </div>
         <div class="card">
             <h3>3. Hệ thức lượng vuông</h3>
-                        <ul>
+            <ul>
                 <li>$h^2 = b' \cdot c'$</li>
                 <li>$a \cdot h = b \cdot c$</li>
                 <li>$b^2 = a \cdot b'; c^2 = a \cdot c'$</li>
@@ -89,11 +97,12 @@
             </ul>
         </div>
         <div class="card">
-            <h3>4. Góc & Đường tròn</h3>
-                        <ul>
-                <li>Góc nội tiếp chắn nửa đường tròn $= 90^\circ$</li>
-                <li>Tổng 2 góc đối tứ giác nội tiếp $= 180^\circ$</li>
-                <li>Góc nội tiếp $= \frac{1}{2}$ Góc ở tâm (cùng chắn 1 cung)</li>
+            <h3>4. Hình Không Gian</h3>
+            <ul>
+                <li>Hình trụ: $V = \pi R^2 h$</li>
+                <li>Hình nón: $V = \frac{1}{3} \pi R^2 h$</li>
+                <li>Hình cầu: $V = \frac{4}{3} \pi R^3$</li>
+                <li>Diện tích mặt cầu: $S = 4 \pi R^2$</li>
             </ul>
         </div>
     </div>
@@ -101,6 +110,10 @@
 
 <div id="quiz-alg" class="container">
     <div class="quiz-box">
+        <span class="stats-text" id="alg-stats">Tiến độ: 0%</span>
+        <div class="progress-container">
+            <div id="alg-progress" class="progress-bar"></div>
+        </div>
         <div id="alg-content"></div>
         <button id="alg-next" class="next-btn" onclick="nextQuestion('alg')">Câu tiếp theo ➡️</button>
         <div style="clear:both"></div>
@@ -109,14 +122,27 @@
 
 <div id="quiz-geo" class="container">
     <div class="quiz-box">
+        <span class="stats-text" id="geo-stats">Tiến độ: 0%</span>
+        <div class="progress-container">
+            <div id="geo-progress" class="progress-bar"></div>
+        </div>
         <div id="geo-content"></div>
         <button id="geo-next" class="next-btn" onclick="nextQuestion('geo')">Câu tiếp theo ➡️</button>
         <div style="clear:both"></div>
     </div>
 </div>
 
+<div id="pdf-preview" class="container">
+    <div class="quiz-box">
+        <h3>📄 Xem trực tuyến: Chuyên đề Hình học</h3>
+        <iframe src="https://drive.google.com/file/d/15l0JEAtVXrjYzDeA19z1Yhceqds-bbwZ/preview" class="pdf-frame"></iframe>
+        <p style="margin-top: 15px; text-align: center;">
+            <a href="https://drive.google.com/file/d/15l0JEAtVXrjYzDeA19z1Yhceqds-bbwZ/view?usp=sharing" target="_blank" style="color: var(--main); font-weight: bold;">Tải về hoặc Mở trong tab mới ↗️</a>
+        </p>
+    </div>
+</div>
+
 <script>
-    // DỮ LIỆU CÂU HỎI (Sử dụng chuỗi raw String.raw để tránh lỗi \ )
     const questions = {
         alg: [
             {
@@ -144,27 +170,95 @@
                 options: [String.raw`$105^\circ$`, String.raw`$75^\circ$`, String.raw`$180^\circ$`, String.raw`$25^\circ$`],
                 ans: 0,
                 explain: String.raw`Trong tứ giác nội tiếp, tổng hai góc đối diện bằng $180^\circ$. Vậy $\widehat{C} = 180^\circ - 75^\circ = 105^\circ$.`
+            },
+            {
+                q: String.raw`Nếu một góc nội tiếp có số đo bằng $40^\circ$ thì cung bị chắn bởi góc đó có số đo là:`,
+                options: [String.raw`$20^\circ$`, String.raw`$40^\circ$`, String.raw`$80^\circ$`, String.raw`$120^\circ$`],
+                ans: 2,
+                explain: String.raw`Số đo góc nội tiếp bằng nửa số đo cung bị chắn. Vậy cung bị chắn $= 40^\circ \times 2 = 80^\circ$.`
+            },
+            {
+                q: String.raw`Một hình nón có bán kính đáy $R=3cm$ và chiều cao $h=4cm$. Thể tích của hình nón là:`,
+                options: [String.raw`$12\pi cm^3$`, String.raw`$36\pi cm^3$`, String.raw`$15\pi cm^3$`, String.raw`$48\pi cm^3$`],
+                ans: 0,
+                explain: String.raw`Công thức $V = \frac{1}{3}\pi R^2 h = \frac{1}{3}\pi \cdot 3^2 \cdot 4 = 12\pi cm^3$.`
+            },
+            {
+                q: String.raw`Góc tạo bởi tia tiếp tuyến và dây cung có số đo bằng:`,
+                options: ["Gấp đôi số đo cung bị chắn", "Bằng số đo cung bị chắn", "Bằng nửa số đo cung bị chắn", "Bửa số đo góc ở tâm"],
+                ans: 2,
+                explain: String.raw`Theo định lý, số đo góc tạo bởi tia tiếp tuyến và dây cung bằng nửa số đo cung bị chắn.`
+            },
+            {
+                q: String.raw`Tính diện tích hình quạt tròn bán kính $R$, cung $n^\circ$:`,
+                options: [String.raw`$S = \frac{\pi R^2 n}{180}$`, String.raw`$S = \frac{\pi R n}{360}$`, String.raw`$S = \frac{\pi R^2 n}{360}$`, String.raw`$S = \frac{2\pi R n}{360}$`],
+                ans: 2,
+                explain: String.raw`Công thức tính diện tích hình quạt tròn là $S = \frac{\pi R^2 n}{360}$.`
+            },
+            {
+                q: String.raw`Một hình cầu có bán kính $R=2cm$. Diện tích mặt cầu là:`,
+                options: [String.raw`$16\pi cm^2$`, String.raw`$8\pi cm^2$`, String.raw`$4\pi cm^2$`, String.raw`$32\pi cm^2$`],
+                ans: 0,
+                explain: String.raw`Diện tích mặt cầu $S = 4\pi R^2 = 4\pi \cdot 2^2 = 16\pi cm^2$.`
+            },
+            {
+                q: String.raw`Cho hình trụ có $R=5cm, h=10cm$. Diện tích xung quanh là:`,
+                options: [String.raw`$50\pi cm^2$`, String.raw`$100\pi cm^2$`, String.raw`$250\pi cm^2$`, String.raw`$10\pi cm^2$`],
+                ans: 1,
+                explain: String.raw`$S_{xq} = 2\pi Rh = 2\pi \cdot 5 \cdot 10 = 100\pi cm^2$.`
+            },
+            {
+                q: String.raw`Số đo góc có đỉnh bên trong đường tròn bằng:`,
+                options: ["Nửa tổng số đo hai cung bị chắn", "Nửa hiệu số đo hai cung bị chắn", "Tổng số đo hai cung bị chắn", "Hiệu số đo hai cung bị chắn"],
+                ans: 0,
+                explain: String.raw`Số đo góc có đỉnh ở bên trong đường tròn bằng nửa tổng số đo hai cung bị chắn.`
+            },
+            {
+                q: String.raw`Cho cung $AB$ của đường tròn $(O;R)$ có số đo là $60^\circ$. Độ dài cung $AB$ là:`,
+                options: [String.raw`$\frac{\pi R}{6}$`, String.raw`$\frac{\pi R}{3}$`, String.raw`$\frac{\pi R}{2}$`, String.raw`$\frac{\pi R^2}{6}$`],
+                ans: 1,
+                explain: String.raw`Độ dài cung $l = \frac{\pi R n}{180} = \frac{\pi R \cdot 60}{180} = \frac{\pi R}{3}$.`
             }
         ]
     };
 
-    let state = { alg: 0, geo: 0 };
+    let state = {
+        alg: { index: 0, score: 0 },
+        geo: { index: 0, score: 0 }
+    };
 
     function showTab(id) {
         document.querySelectorAll('.container').forEach(c => c.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        event.currentTarget.classList.add('active');
+        if(event) event.currentTarget.classList.add('active');
+    }
+
+    function updateProgress(type) {
+        const current = state[type].index;
+        const total = questions[type].length;
+        const percent = (current / total) * 100;
+        document.getElementById(`${type}-progress`).style.width = percent + '%';
+        document.getElementById(`${type}-stats`).innerText = `Tiến độ: ${Math.round(percent)}% (Câu ${current}/${total})`;
     }
 
     function renderQuestion(type) {
-        const idx = state[type];
+        const idx = state[type].index;
         const data = questions[type];
         const container = document.getElementById(type + '-content');
         const nextBtn = document.getElementById(type + '-next');
 
+        updateProgress(type);
+
         if (idx >= data.length) {
-            container.innerHTML = "<h2>🎉 Hoàn thành bài tập!</h2><p>Con đã xem hết các câu hỏi mẫu phần này.</p>";
+            const score = state[type].score;
+            container.innerHTML = `
+                <div class="result-screen">
+                    <h2>🎉 Hoàn thành bộ câu hỏi!</h2>
+                    <div class="score-circle">${score}/${data.length}</div>
+                    <p>${score === data.length ? "Tuyệt vời! Con đã nắm vững kiến thức." : "Khá tốt! Hãy xem lại các câu sai nhé."}</p>
+                    <button class="restart-btn" onclick="restartQuiz('${type}')">Làm lại từ đầu 🔄</button>
+                </div>`;
             nextBtn.style.display = "none";
             return;
         }
@@ -179,12 +273,12 @@
         `;
         
         nextBtn.style.display = "none";
-        // Ép MathJax vẽ lại công thức
         MathJax.typesetPromise();
     }
 
     function checkAns(type, selected, btn) {
-        const item = questions[type][state[type]];
+        const currentIdx = state[type].index;
+        const item = questions[type][currentIdx];
         const exBox = document.getElementById(type + '-ex');
         const btns = btn.parentElement.querySelectorAll('.opt-btn');
 
@@ -192,11 +286,12 @@
         
         if (selected === item.ans) {
             btn.classList.add('correct');
+            state[type].score++;
             exBox.innerHTML = "✅ <b>Chính xác!</b><br>" + item.explain;
         } else {
             btn.classList.add('wrong');
             btns[item.ans].classList.add('correct');
-            exBox.innerHTML = "❌ <b>Chưa đúng rồi.</b><br>" + item.explain;
+            exBox.innerHTML = "❌ <b>Chưa đúng.</b><br>" + item.explain;
         }
 
         exBox.style.display = "block";
@@ -205,11 +300,15 @@
     }
 
     function nextQuestion(type) {
-        state[type]++;
+        state[type].index++;
         renderQuestion(type);
     }
 
-    // Khởi tạo
+    function restartQuiz(type) {
+        state[type] = { index: 0, score: 0 };
+        renderQuestion(type);
+    }
+
     window.onload = () => {
         renderQuestion('alg');
         renderQuestion('geo');
